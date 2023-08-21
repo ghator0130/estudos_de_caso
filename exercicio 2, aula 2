@@ -1,0 +1,71 @@
+class Cliente:
+    def __init__(self, nome, cpf):
+        self.nome = nome
+        self.cpf = cpf
+        self.contas = []
+
+    def adicionar_conta(self, conta):
+        self.contas.append(conta)
+
+
+class ContaBancaria:
+    def __init__(self, numero, saldo=0):
+        self.numero = numero
+        self.saldo = saldo
+        self.cliente = None
+
+    def vincular_cliente(self, cliente):
+        self.cliente = cliente
+        cliente.adicionar_conta(self)
+
+    def depositar(self, valor):
+        self.saldo += valor
+
+    def sacar(self, valor):
+        if self.saldo >= valor:
+            self.saldo -= valor
+        else:
+            print("Saldo insuficiente.")
+
+
+# Criando clientes
+cliente1 = Cliente("João da Silva", "111.111.111-11")
+cliente2 = Cliente("Maria Souza", "222.222.222-22")
+cliente3 = Cliente("Pedro Almeida", "333.333.333-33")
+cliente4 = Cliente("Ana Santos", "444.444.444-44")
+
+# Criando contas bancárias
+conta1 = ContaBancaria("1001")
+conta2 = ContaBancaria("2002")
+conta3 = ContaBancaria("3003")
+conta4 = ContaBancaria("4004")
+
+# Vinculando contas aos clientes
+conta1.vincular_cliente(cliente1)
+conta2.vincular_cliente(cliente2)
+conta3.vincular_cliente(cliente3)
+conta4.vincular_cliente(cliente4)
+
+# Operações nas contas
+conta1.depositar(1000)
+conta1.sacar(200)
+conta2.depositar(500)
+conta2.sacar(100)
+conta3.depositar(1500)
+conta4.depositar(2000)
+conta4.sacar(300)
+
+# Informações dos clientes
+print("Cliente:", cliente1.nome, "(CPF:", cliente1.cpf, ")")
+print("Contas:", [conta.numero for conta in cliente1.contas])
+print("Cliente:", cliente2.nome, "(CPF:", cliente2.cpf, ")")
+print("Contas:", [conta.numero for conta in cliente2.contas])
+print("Cliente:", cliente3.nome, "(CPF:", cliente3.cpf, ")")
+print("Contas:", [conta.numero for conta in cliente3.contas])
+print("Cliente:", cliente4.nome, "(CPF:", cliente4.cpf, ")")
+print("Contas:", [conta.numero for conta in cliente4.contas])
+
+print("Conta:", conta1.numero, "- Saldo: R$", conta1.saldo)
+print("Conta:", conta2.numero, "- Saldo: R$", conta2.saldo)
+print("Conta:", conta3.numero, "- Saldo: R$", conta3.saldo)
+print("Conta:", conta4.numero, "- Saldo: R$", conta4.saldo)
